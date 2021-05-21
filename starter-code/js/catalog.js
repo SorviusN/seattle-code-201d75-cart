@@ -31,36 +31,36 @@ function populateForm() {
 // object, save the whole thing back to local storage and update the screen
 // so that it shows the # of items in the cart and a quick preview of the cart itself.
 function handleSubmit(event) {
+  if (quantityElement.value > 0){
 
-  // DONE: Prevent the page from reloading
-  event.preventDefault();
+    // DONE: Prevent the page from reloading
+    event.preventDefault();
 
-  // Do all the things ...
-  addSelectedItemToCart();
-  cart.saveToLocalStorage();
-  updateCounter();
-  updateCartPreview();
-
+    // Do all the things ...
+    addSelectedItemToCart();
+    cart.saveToLocalStorage();
+    updateCounter();
+    updateCartPreview();
+  }
+  else {
+    alert('Quantity cannot be 0 or lower. Please try again.');
+  }
 }
 
 // DONE: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
-    if (quantityElement.value != 0){
-  // DONE: suss out the item picked from the select list
+      // DONE: suss out the item picked from the select list
   let chosenProduct = selectElement.value;
   // DONE: get the quantity
   let chosenQuantity = quantityElement.value;
   // DONE: using those, add one item to the Cart
   cart.addItem(chosenProduct, chosenQuantity);
-  }
-  else {
-    alert('Quantity cannot be 0. Please try again.');
-  }
+ 
 }
 
 // DONE: Update the cart count in the header nav with the number of items in the Cart
 function updateCounter() {
-  cartCount++; //incrementing our cartCount.
+  cartCount ++; //incrementing our cartCount.
 
   cartCountElem.innerHTML = ''; // clearing the previous data
 
@@ -68,17 +68,33 @@ function updateCounter() {
 
 }
 
-// DONE: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
   // DONE: Get the item and quantity from the form
   // Declared as a global function.
 
   // DONE: Add a new element to the cartContents div with that information
-  document.getElementById('cartContents');
+  let previewCart = document.getElementById('cartContents');
+  previewCart.style.display = 'flex';
 
-  let productImage = document.createElement('img');
-    productImage.src = selectElement.value.filePath;
-  console.log(productImage);
+  let imgContainer = document.createElement('div');
+  imgContainer.style.width = '120px';
+  imgContainer.style.height = '120px';
+  previewCart.appendChild(imgContainer);
+
+  let imageElem = document.createElement('img');
+    for (let i = 0; i < Product.allProducts.length; i++) {
+      if (Product.allProducts[i].name === selectElement.value) {    
+        imageElem.src = Product.allProducts[i].filePath;
+        break;
+      }
+    }
+    imageElem.style.width = '100%';
+    console.log(Product.allProducts[0].filePath);
+    imgContainer.appendChild(imageElem);
+
+  let quantityElem = document.createElement('h');
+  quantityElem.innerHTML = quantityElement.value;
+  previewCart.appendChild(quantityElem);
 }
 
 // Set up the "submit" event listener on the form.
