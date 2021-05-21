@@ -1,1 +1,37 @@
 /* TODO: Make it awesome */
+* {
+  box-sizing: border-box;
+  color: whitesmoke;
+}
+
+body {
+  background-color: #264653;
+  margin: auto 6rem;
+  border: solid whitesmoke 2px;
+  border-radius: 10px;
+}
+
+body * {
+  padding: 0.2rem;
+}
+
+tr {
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+select, input {
+  background-color: black;
+  border: solid black 1px;
+  border-radius: 5px;
+}
+
+#cartContents {
+  height: 100px;
+}
